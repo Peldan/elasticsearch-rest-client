@@ -22,4 +22,4 @@ jobs:
         java-version: 1.8
 
     - name: Build with Maven
-      run: mvn -B package --file pom.xml -Pskip-integration-tests
+      run: mvn -B clean package -Pskip-integration-tests
