@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ClientWrapperTest {
+public class ClientWrapperIntegrationTest {
 
     OkEsClient okEsClient = new OkEsClient();
     ClientWrapper clientWrapper = new ClientWrapperImpl(okEsClient, "http://localhost:9200/");
