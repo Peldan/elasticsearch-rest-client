@@ -10,7 +10,7 @@ public class ClientWrapperTest {
     ClientWrapper clientWrapper = new ClientWrapperImpl(okEsClient, "http://localhost:9200/");
 
     @Test
-    public void createAndExistsTest() {
+    public void createDeleteTest() {
         String index = "test";
         String createResponse = clientWrapper.create(index);
         assertNotNull(createResponse);
