@@ -10,8 +10,8 @@ import static com.arvid.okesclient.action.EsAction.*;
 @Component
 public class ClientWrapperImpl implements ClientWrapper {
 
-    private OkEsClient okEsClient;
-    private String elasticUrl;
+    private final OkEsClient okEsClient;
+    private final String elasticUrl;
 
     @Autowired
     public ClientWrapperImpl(OkEsClient okEsClient,

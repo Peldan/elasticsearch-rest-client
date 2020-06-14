@@ -4,13 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Objects;
 
 @Component
 @Slf4j
 class OkEsClient {
 
-    private OkHttpClient client;
+    private final OkHttpClient client;
 
     private static final MediaType JSON
             = MediaType.get("application/json; charset=utf-8");
@@ -73,8 +74,8 @@ class OkEsClient {
     }
 
     private boolean isSuccessful(Request request){
-        try(Response response = client.newCall(request).execute()){
-            return response.code() == 200;
+        try(Response response = executeRequest(client.newCall(request))){
+            return response.isSuccessful();
         } catch (Exception ex){
             log.error("Fel vid exekvering av request {}", request, ex);
             return false;
@@ -83,12 +84,16 @@ class OkEsClient {
 
     private String getResponseAsString(Request request) {
         String toReturn;
-        try (Response response = client.newCall(request).execute()){
+        try (Response response = executeRequest(client.newCall(request))){
             toReturn = Objects.requireNonNull(response.body()).string();
         } catch (Exception e){
             toReturn = e.getMessage();
         }
         return toReturn;
+    }
+
+    private Response executeRequest(Call call) throws IOException {
+        return call.execute();
     }
 
 }

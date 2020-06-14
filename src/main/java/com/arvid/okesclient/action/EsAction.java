@@ -1,5 +1,8 @@
 package com.arvid.okesclient.action;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public enum EsAction {
     CREATE,
     DELETE,
@@ -11,10 +14,6 @@ public enum EsAction {
 
     EsAction(){
         this.path = "";
-    }
-
-    EsAction(String path){
-        this.path = path;
     }
 
     public String getPath() {
