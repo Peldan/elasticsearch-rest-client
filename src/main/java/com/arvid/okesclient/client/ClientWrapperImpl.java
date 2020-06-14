@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 import static com.arvid.okesclient.action.EsAction.*;
 
 @Component
@@ -21,28 +23,38 @@ public class ClientWrapperImpl implements ClientWrapper {
     }
 
     @Override
-    public String create(String indexName) {
-        return okEsClient.put(transformPath(indexName, CREATE));
+    public String create(EsRequest request) {
+        Objects.requireNonNull(request, "request cannot be null");
+        request = request.build();
+        return okEsClient.put(transformPath(request.getIndexName(), CREATE));
     }
 
     @Override
-    public String delete(String indexName) {
-        return okEsClient.delete(transformPath(indexName, DELETE));
+    public String delete(EsRequest request) {
+        Objects.requireNonNull(request, "request cannot be null");
+        request = request.build();
+        return okEsClient.delete(transformPath(request.getIndexName(), DELETE));
     }
 
     @Override
-    public String get(String indexName) {
-        return okEsClient.get(transformPath(indexName, GET));
+    public String get(EsRequest request) {
+        Objects.requireNonNull(request, "request cannot be null");
+        request = request.build();
+        return okEsClient.get(transformPath(request.getIndexName(), GET));
     }
 
     @Override
-    public String getMapping(String indexName) {
-        return okEsClient.get(transformPath(indexName, MAPPING));
+    public String getMapping(EsRequest request) {
+        Objects.requireNonNull(request, "request cannot be null");
+        request = request.build();
+        return okEsClient.get(transformPath(request.getIndexName(), MAPPING));
     }
 
     @Override
-    public boolean exists(String indexName) {
-        return okEsClient.head(transformPath(indexName, EXISTS));
+    public boolean exists(EsRequest request) {
+        Objects.requireNonNull(request, "request cannot be null");
+        request = request.build();
+        return okEsClient.head(transformPath(request.getIndexName(), EXISTS));
     }
 
     private String transformPath(String index, EsAction action){
